@@ -10,26 +10,63 @@
 ## 🌐 Deployment su Railway (Raccomandato)
 
 ### Passo 1: Preparazione
-1. Vai su [railway.app](https://railway.app)
-2. Accedi con GitHub
-3. Clicca "New Project"
+1. **Assicurati che il codice sia su GitHub**:
+   ```bash
+   git add .
+   git commit -m "Ready for Railway deploy"
+   git push origin main
+   ```
+
+2. Vai su [railway.app](https://railway.app)
+3. Clicca "Login" e accedi con GitHub
+4. Clicca "New Project"
 
 ### Passo 2: Deploy
 1. Seleziona "Deploy from GitHub repo"
-2. Scegli il repository `pino-api`
-3. Railway rileverà automaticamente Node.js
-4. Il deploy inizierà automaticamente
+2. **Autorizza Railway** ad accedere ai tuoi repository se richiesto
+3. Scegli il repository `pino-api`
+4. Railway rileverà automaticamente Node.js
+5. **IMPORTANTE**: Verifica che Railway usi il comando `npm start`
 
-### Passo 3: Configurazione
-- Railway assegnerà automaticamente un URL
-- La variabile `PORT` sarà impostata automaticamente
-- Il database `db.json` sarà persistente
+### Passo 3: Configurazione Automatica
+- ✅ Railway assegnerà automaticamente un URL (es: `https://pino-api-production.up.railway.app`)
+- ✅ La variabile `PORT` sarà impostata automaticamente
+- ✅ Il database `db.json` sarà persistente
+- ✅ Deploy automatico ad ogni push su GitHub
 
-### Passo 4: Test
+### Passo 4: Verifica Deploy
+1. **Attendi il completamento** (2-3 minuti)
+2. **Clicca sul tuo progetto** nella dashboard Railway
+3. **Vai alla tab "Deployments"** per vedere i log
+4. **Copia l'URL pubblico** dalla tab "Settings" → "Domains"
+
+### Passo 5: Test
 ```bash
 # Sostituisci YOUR_RAILWAY_URL con l'URL fornito
-curl https://YOUR_RAILWAY_URL.railway.app/todos
+curl https://YOUR_RAILWAY_URL/todos
+# Dovrebbe restituire: []
+
+# Test completo
+curl -X POST https://YOUR_RAILWAY_URL/todos \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Test Railway","completed":false}'
 ```
+
+### 🚨 Risoluzione Problemi Railway
+
+**Deploy fallisce:**
+- ✅ Verifica che `package.json` abbia `"start": "node server.js"`
+- ✅ Controlla i log nella tab "Deployments"
+- ✅ Assicurati che `server.js` sia nel root del progetto
+
+**App non risponde:**
+- ✅ Verifica che il server usi `process.env.PORT`
+- ✅ Controlla che l'host sia `0.0.0.0` (già configurato)
+- ✅ Attendi qualche minuto per il cold start
+
+**Repository non trovato:**
+- ✅ Assicurati che il repository sia pubblico O che Railway abbia i permessi
+- ✅ Riconnetti GitHub nelle impostazioni Railway se necessario
 
 ## 🔧 Deployment su Render
 

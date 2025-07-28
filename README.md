@@ -39,16 +39,21 @@ L'API sarà disponibile su http://localhost:3001
 
 ## 🚀 Deployment
 
-### Railway
+### Railway (Raccomandato) 🚂
 
-1. **Connetti il repository a Railway**:
-   - Vai su [Railway](https://railway.app)
-   - Connetti il tuo repository GitHub
-   - Railway rileverà automaticamente il progetto Node.js
+**Guida rapida:**
+1. Vai su [Railway](https://railway.app) e accedi con GitHub
+2. Clicca "New Project" → "Deploy from GitHub repo"
+3. Seleziona il repository `pino-api`
+4. Railway farà tutto automaticamente!
 
-2. **Configurazione automatica**:
-   - Railway userà automaticamente `npm start`
-   - La variabile `$PORT` sarà impostata automaticamente
+**Per istruzioni dettagliate:** Vedi <mcfile name="railway-deploy.md" path="c:\Users\macch\Documents\GitHub\pino-api\railway-deploy.md"></mcfile>
+
+**Test dell'API deployata:**
+```bash
+# Sostituisci con il tuo URL Railway
+npm run test-api https://tuo-progetto.up.railway.app
+```
 
 ### Render
 
