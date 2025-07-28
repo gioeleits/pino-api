@@ -74,6 +74,19 @@ curl $API_URL/settings
 
 ### Deploy Fallisce
 
+
+**Errore: "Cannot find module 'json-server'"**
+```bash
+# Rimuovi package-lock.json e reinstalla
+rm package-lock.json
+npm install
+git add .
+git commit -m "Fix json-server dependency"
+git push origin main
+```
+- ✅ Abbiamo aggiornato a json-server versione stabile (0.17.4)
+- ✅ Il server ora crea automaticamente db.json se mancante
+
 **Errore: "Build failed"**
 ```bash
 # Verifica package.json localmente
@@ -98,6 +111,7 @@ npm start
 1. Controlla i logs in Railway
 2. Verifica che il server usi `process.env.PORT`
 3. Attendi il "cold start" (primo avvio può richiedere 30-60 secondi)
+4. Verifica che db.json sia presente o venga creato automaticamente
 
 **CORS Errors**
 - Il file `server.js` già gestisce CORS

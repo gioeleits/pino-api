@@ -1,7 +1,20 @@
 const jsonServer = require('json-server');
+const path = require('path');
+const fs = require('fs');
+
+// Verifica che db.json esista
+const dbPath = path.join(__dirname, 'db.json');
+if (!fs.existsSync(dbPath)) {
+  console.log('Creating db.json...');
+  fs.writeFileSync(dbPath, JSON.stringify({
+    "todos": [],
+    "settings": { "nextId": 1 }
+  }, null, 2));
+}
+
 const server = jsonServer.create();
-const router = jsonServer.router('db.json');
-const middlewares = jsonServer.defaults();
+const router = jsonServer.router(dbPath);
+const middlewares = jsonServer.defaults({ static: './public' });
 
 // Configurazione CORS personalizzata
 server.use((req, res, next) => {
